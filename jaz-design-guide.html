@@ -2384,7 +2384,7 @@
       "logoLink": "https://www.jazdesign.com",
       "userLink": "https://www.jazdesign.com/guidance"
     },
-    "schemaVersion": 22,
+    "schemaVersion": 23,
     "sourcePdf": "guide_optimizedFINAL.pdf",
     "notes": "Field schema extracted from the 12-page PDF. Drives the HTML template, autosave keys, and the Supabase JSON payload. Every input field has a stable `id` used as the storage key; ids are never renamed once shipped (renaming breaks saved records).",
     "fieldTypes": {
@@ -2421,7 +2421,7 @@
         "class": "logo-lg"
       },
       "tagline": {
-        "text": "for CLARITY • CONFIDENCE • COMFORT",
+        "text": "for\nCLARITY • CONFIDENCE • COMFORT",
         "class": ""
       },
       "subtitle": {
@@ -3738,10 +3738,26 @@
         }
 
         // ---- helpers ----
+        // Sets node text; a literal \n in editable copy becomes a real <br>.
+        // Text nodes only (no innerHTML) so copy can never inject markup.
+        function setText(node, str) {
+          if (str == null) return;
+          str = String(str);
+          if (str.indexOf("\n") === -1) {
+            node.textContent = str;
+            return;
+          }
+          node.textContent = "";
+          var parts = str.split("\n");
+          for (var i = 0; i < parts.length; i++) {
+            if (i) node.appendChild(document.createElement("br"));
+            node.appendChild(document.createTextNode(parts[i]));
+          }
+        }
         function el(tag, cls, txt) {
           var e = document.createElement(tag);
           if (cls) e.className = cls;
-          if (txt != null) e.textContent = txt;
+          if (txt != null) setText(e, txt);
           return e;
         }
         function g(id) {
@@ -5411,12 +5427,12 @@
           document.querySelectorAll("#createModal [data-copy]").forEach(function (n) {
             var b = blocks[n.getAttribute("data-copy")];
             if (!b) return;
-            if (b.text != null) n.textContent = b.text;
+            if (b.text != null) setText(n, b.text);
             if (b.class) n.className = (n.className ? n.className + " " : "") + b.class;
           });
           document.querySelectorAll("#createModal [data-copy-str]").forEach(function (n) {
             var s = strings[n.getAttribute("data-copy-str")];
-            if (s != null) n.textContent = s;
+            if (s != null) setText(n, s);
           });
         }
         function openCreate() {
@@ -6036,7 +6052,7 @@
                 a.rel = "noopener";
                 foot.appendChild(a);
               } else {
-                foot.textContent = ft.text || "";
+                setText(foot, ft.text || "");
               }
             }
             app.appendChild(foot);
