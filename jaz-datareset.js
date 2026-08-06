@@ -35,7 +35,7 @@
    ============================================================ */
 (function () {
   /* ---- CONFIG: the only two lines you ever change ---- */
-  var _DATARESET = true; /* master switch: true during beta, false after */
+  var _DATARESET = false; /* master switch: true during beta, false after */
   var _DATAVERSION = 1; /* bump to force one reset per tester */
 
   /* ---- CONSTANTS ---- */
@@ -83,6 +83,17 @@
   } catch (e) {}
 
   try {
-    console.log("[JAZ RESET] " + location.origin + ": v" + (seen === null ? "none" : seen) + " -> v" + _DATAVERSION + ", cleared " + cleared + " key(s)" + (forced ? " (manual)" : ""));
+    console.log(
+      "[JAZ RESET] " +
+        location.origin +
+        ": v" +
+        (seen === null ? "none" : seen) +
+        " -> v" +
+        _DATAVERSION +
+        ", cleared " +
+        cleared +
+        " key(s)" +
+        (forced ? " (manual)" : ""),
+    );
   } catch (e) {}
 })();
