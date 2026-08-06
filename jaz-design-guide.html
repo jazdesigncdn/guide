@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- BETA RESET: stays first and synchronous — runs before the jazguide:* bootstrap read. Stripped from downloads by assembleFilledHTML. Remove after beta. -->
+    <script src="https://guide.jazdesign.com/jaz-datareset.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -5376,6 +5378,13 @@
           // #app is re-rendered from #model on every boot, so baked panels are dead weight
           // (~37KB). Empty it back to the placeholder before writing the file out.
           html = html.replace(/(<main\b[^>]*\bid="app"[^>]*>)[\s\S]*?(<\/main>)/i, "$1<!-- panels injected here -->$2");
+          // BETA RESET must never ride into a saved copy: an offline artifact would phone home,
+          // and a wipe on the download's origin collides with the LSSEED re-seed guard.
+          // Idempotent — no-op once the beta script is removed from the head.
+          html = html.replace(
+            /\s*(?:<!--[^>]*BETA RESET[\s\S]*?-->\s*)?<script\b[^>]*jaz-datareset\.js[^>]*>\s*<\/script>/i,
+            "",
+          );
           return html;
         }
 
