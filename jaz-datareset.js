@@ -35,8 +35,8 @@
    ============================================================ */
 (function () {
   /* ---- CONFIG: the only two lines you ever change ---- */
-  var _DATARESET = false; /* master switch: true during beta, false after */
-  var _DATAVERSION = 1; /* bump to force one reset per tester */
+  var _DATARESET = true; /* master switch: true during beta, false after */
+  var _DATAVERSION = 2; /* bump to force one reset per tester */
 
   /* ---- CONSTANTS ---- */
   var VERSION_KEY = "jazreset:version"; /* lives OUTSIDE the wipe namespace */
