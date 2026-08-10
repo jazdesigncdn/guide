@@ -182,8 +182,8 @@
         background: rgba(43, 160, 184, 0.06);
       }
       .opt-row.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+        /* opacity: 0.5; */
+        cursor: default;
       }
       .opt-row input {
         margin-top: 3px;
@@ -2432,1058 +2432,1057 @@
     <!-- ===== EMBEDDED MODEL (replace with build-time inject of jaz-guide-model.json) ===== -->
     <script id="model" type="application/json">
       {
-  "meta": {
-    "title": "Kitchen Renovation Planning Guide",
-    "footer": {
-      "text": "jazdesign.com/guidance",
-      "url": "https://www.jazdesign.com/guidance"
-    },
-    "header": {
-      "logoImg": "https://images.squarespace-cdn.com/content/v1/684daa70ee27897c73ed1545/72b11084-0a73-4cf9-8055-14596d24e2a3/JDFinalLogo.C.png?format=1500w",
-      "logoLink": "https://www.jazdesign.com",
-      "userLink": "https://www.jazdesign.com/guidance"
-    },
-    "schemaVersion": 25,
-    "sourcePdf": "guide_optimizedFINAL.pdf",
-    "notes": "Field schema extracted from the 12-page PDF. Drives the HTML template, autosave keys, and the Supabase JSON payload. Every input field has a stable `id` used as the storage key; ids are never renamed once shipped (renaming breaks saved records).",
-    "fieldTypes": {
-      "text": "single-line free text",
-      "textarea": "multi-line free text",
-      "money": "currency amount, store as number or null; UI shows $ prefix",
-      "radio": "choose exactly one from options",
-      "checkbox_group": "choose any number from options (check all that apply)",
-      "checkbox_group_priority": "checkbox group where checked items can ALSO be ranked 1-9+ (per PDF p9-10). Store as {selected:[...], priority:{optionId:rank}}",
-      "checkbox_money_group": "each option is a checkbox AND has its own optional $ amount. Store as {optionId:{checked:bool, amount:number|null}}",
-      "info": "read-only display content, no input, not persisted",
-      "_jazNote": "Optional. Jaz's inline guidance, rendered in her blue voice beneath the field. Verbatim-ish from the PDF; Jaz may redline."
-    },
-    "contact": {
-      "name": "JAZ DESIGN",
-      "business": "JAZ DESIGN",
-      "email": "kitchenguide@jazdesign.com",
-      "web": "jazdesign.com"
-    }
-  },
-  "ui": {
-    "loading": "Loading your previous answers…",
-    "conflictTitle": "Which answers should we use?",
-    "conflictBody": "This guide has answers saved online that differ from what's on this device. Possible reasons: using guide on another device or browser, editing both on and off Jazdesign.com. Recommended to use whichever has the most answers stored so you don't lose any work.",
-    "conflictServerLabel": "Saved online",
-    "conflictLocalLabel": "On this device",
-    "conflictAnswered": "{{n}} answered",
-    "conflictUpdated": "updated {{when}}"
-  },
-  "cover": {
-    "blocks": {
-      "wordmark": {
-        "text": "JAZ DESIGN",
-        "class": "logo-lg"
-      },
-      "tagline": {
-        "text": "for\nCLARITY • CONFIDENCE • COMFORT",
-        "class": ""
-      },
-      "subtitle": {
-        "text": "A guide to help you dream a little, get organized, and begin shaping a kitchen that works better for your life.",
-        "class": "sub"
-      },
-      "gateHeading": {
-        "text": "Enter your email to begin",
-        "class": ""
-      },
-      "gateBody": {
-        "text": "Your answers save automatically and you can return any time to pick up where you left off.",
-        "class": ""
-      },
-      "gateButton": {
-        "text": "Start the guide",
-        "class": ""
-      },
-      "consentText": {
-        "text": "I agree to {{terms}} and {{privacy}} of JAZ Design, Inc. for using this guide and providing my information.",
-        "class": ""
-      },
-      "consentPrior": {
-        "text": "Agreement to {{terms}} and {{privacy}} previously accepted.",
-        "class": ""
-      },
-      "readonlyNotice": {
-        "text": "These are the answers provided by {{email}}. This copy is read-only and cannot be edited.",
-        "class": ""
-      }
-    },
-    "strings": {
-      "emailPlaceholder": "you@example.com",
-      "emailError": "Please enter a valid email address.",
-      "termsLabel": "Terms of Use",
-      "privacyLabel": "Privacy Policy",
-      "termsUrl": "https://www.jazdesign.com/terms",
-      "privacyUrl": "https://www.jazdesign.com/privacy",
-      "consentError": "Please accept the Terms of Use and Privacy Policy to continue.",
-      "changeTitle": "Change your email address?",
-      "changeBody": "Changing email from {{from}} to {{to}} will reset the guide and clear any previous answers. Continue?",
-      "changeOk": "Change email",
-      "changeCancel": "Cancel"
-    }
-  },
-  "chooser": {
-    "blocks": {
-      "title": {
-        "text": "Save My Guide",
-        "class": ""
-      },
-      "sub": {
-        "text": "Your answers are already saved. Pick what to do with them — choose any combination.",
-        "class": ""
-      },
-      "optDownloadTitle": {
-        "text": "Download a copy",
-        "class": ""
-      },
-      "optDownloadDesc": {
-        "text": "Saves a self-contained HTML file to this device you can open, finish, and share anytime.",
-        "class": ""
-      },
-      "optEmailTitle": {
-        "text": "Email Guide",
-        "class": ""
-      },
-      "optEmailDesc": {
-        "text": "Send a copy to yourself, another address, or both. Your own copy stays editable; anyone else gets a read-only copy.",
-        "class": ""
-      },
-      "optJazTitle": {
-        "text": "Send to JAZ Design",
-        "class": ""
-      },
-      "optJazDesc": {
-        "text": "Shares your answers with JAZ Design to start the conversation.",
-        "class": ""
-      },
-      "needsInternet": {
-        "text": "Needs internet — available once you're online.",
-        "class": ""
-      },
-      "jazLockedNote": {
-        "text": "This opens up once you book one of the support options on the Next Steps page. After your purchase is confirmed I'll email you, and this option switches on for the email address you used.",
-        "class": ""
-      },
-      "jazCheckFailNote": {
-        "text": "Couldn't check this just now. Check your connection and try again in a moment.",
-        "class": ""
-      },
-      "cancel": {
-        "text": "Cancel",
-        "class": ""
-      },
-      "done": {
-        "text": "Continue",
-        "class": ""
-      }
-    },
-    "strings": {
-      "emailToMeLabel": "Email to me",
-      "emailCopyToLabel": "Send copy to:",
-      "contactEmailLabel": "Your email (shared with JAZ Design)",
-      "contactNameLabel": "Name",
-      "contactPhoneLabel": "Phone",
-      "contactCityLabel": "City",
-      "contactStateLabel": "State",
-      "contactCommentsLabel": "Anything you'd like JAZ Design to know? (optional)",
-      "jazLockedLink": "See Next Steps & Optional Support",
-      "emailInvalidErr": "That email doesn’t look right.",
-      "emailEmptyErr": "Add an address or check “Email to me”.",
-      "emailBlockedErr": "That address can’t receive a copy. To share your answers with JAZ Design, use “Send to JAZ Design” below."
-    }
-  },
-  "system": {
-    "email": {
-      "id": "user_email",
-      "type": "text",
-      "required": true,
-      "note": "Primary key for the record in Supabase. Captured at the email gate (online) or baked into embedded JSON (offline)."
-    },
-    "timestamps": ["created_at", "updated_at"]
-  },
-  "preview": {
-    "note": "Online: only page 1 (cover) shows before the email gate. Everything from Section One onward is gated.",
-    "gateAfter": "cover"
-  },
-  "sections": [
-    {
-      "id": "intro",
-      "type": "info",
-      "pdfPages": [2],
-      "persisted": false,
-      "note": "Page 2 — JAZ's opening letter + coffee photo. Copy is in blocks[] (editable); style per block via class. Image = IMG.intro (still in template).",
-      "blocks": [
-        {
-          "id": "intro_lead",
-          "label": "Intro line",
-          "class": "intro-lead-it",
-          "text": "After 25 years of designing spaces, the one thing I know for certain is this:"
+        "meta": {
+          "title": "Kitchen Renovation Planning Guide",
+          "footer": {
+            "text": "jazdesign.com/guidance",
+            "url": "https://www.jazdesign.com/guidance"
+          },
+          "header": {
+            "logoImg": "https://images.squarespace-cdn.com/content/v1/684daa70ee27897c73ed1545/72b11084-0a73-4cf9-8055-14596d24e2a3/JDFinalLogo.C.png?format=1500w",
+            "logoLink": "https://www.jazdesign.com",
+            "userLink": "https://www.jazdesign.com/guidance"
+          },
+          "schemaVersion": 25,
+          "sourcePdf": "guide_optimizedFINAL.pdf",
+          "notes": "Field schema extracted from the 12-page PDF. Drives the HTML template, autosave keys, and the Supabase JSON payload. Every input field has a stable `id` used as the storage key; ids are never renamed once shipped (renaming breaks saved records).",
+          "fieldTypes": {
+            "text": "single-line free text",
+            "textarea": "multi-line free text",
+            "money": "currency amount, store as number or null; UI shows $ prefix",
+            "radio": "choose exactly one from options",
+            "checkbox_group": "choose any number from options (check all that apply)",
+            "checkbox_group_priority": "checkbox group where checked items can ALSO be ranked 1-9+ (per PDF p9-10). Store as {selected:[...], priority:{optionId:rank}}",
+            "checkbox_money_group": "each option is a checkbox AND has its own optional $ amount. Store as {optionId:{checked:bool, amount:number|null}}",
+            "info": "read-only display content, no input, not persisted",
+            "_jazNote": "Optional. Jaz's inline guidance, rendered in her blue voice beneath the field. Verbatim-ish from the PDF; Jaz may redline."
+          },
+          "contact": {
+            "name": "JAZ DESIGN",
+            "business": "JAZ DESIGN",
+            "email": "kitchenguide@jazdesign.com",
+            "web": "jazdesign.com"
+          }
         },
-        {
-          "id": "intro_headline",
-          "label": "Header line",
-          "class": "intro-lead-big",
-          "text": "Life changes, and so may your needs."
+        "ui": {
+          "loading": "Loading your previous answers…",
+          "conflictTitle": "Which answers should we use?",
+          "conflictBody": "This guide has answers saved online that differ from what's on this device. Possible reasons: using guide on another device or browser, editing both on and off Jazdesign.com. Recommended to use whichever has the most answers stored so you don't lose any work.",
+          "conflictServerLabel": "Saved online",
+          "conflictLocalLabel": "On this device",
+          "conflictAnswered": "{{n}} answered",
+          "conflictUpdated": "updated {{when}}"
         },
-        {
-          "id": "intro_body",
-          "label": "Body",
-          "class": "intro-body",
-          "text": "A kitchen that worked perfectly a decade ago may feel like it’s working against you now. And the kitchen you saw in a magazine, the one you’ve been quietly saving images of, may be someone else’s solution to someone else’s life. This guide isn’t about trends or finishes. It’s about you, how you actually live, what genuinely frustrates you, and what would make you smile every single morning. Take your time with it. Skip what doesn’t apply. Come back to the parts that make you think. And when you’re ready to talk through what you’ve discovered, I’m here."
+        "cover": {
+          "blocks": {
+            "wordmark": {
+              "text": "JAZ DESIGN",
+              "class": "logo-lg"
+            },
+            "tagline": {
+              "text": "for\nCLARITY • CONFIDENCE • COMFORT",
+              "class": ""
+            },
+            "subtitle": {
+              "text": "A guide to help you dream a little, get organized, and begin shaping a kitchen that works better for your life.",
+              "class": "sub"
+            },
+            "gateHeading": {
+              "text": "Enter your email to begin",
+              "class": ""
+            },
+            "gateBody": {
+              "text": "Your answers save automatically and you can return any time to pick up where you left off.",
+              "class": ""
+            },
+            "gateButton": {
+              "text": "Start the guide",
+              "class": ""
+            },
+            "consentText": {
+              "text": "I agree to {{terms}} and {{privacy}} of JAZ Design, Inc. for using this guide and providing my information.",
+              "class": ""
+            },
+            "consentPrior": {
+              "text": "Agreement to {{terms}} and {{privacy}} previously accepted.",
+              "class": ""
+            },
+            "readonlyNotice": {
+              "text": "These are the answers provided by {{email}}. This copy is read-only and cannot be edited.",
+              "class": ""
+            }
+          },
+          "strings": {
+            "emailPlaceholder": "you@example.com",
+            "emailError": "Please enter a valid email address.",
+            "termsLabel": "Terms of Use",
+            "privacyLabel": "Privacy Policy",
+            "termsUrl": "https://www.jazdesign.com/terms",
+            "privacyUrl": "https://www.jazdesign.com/privacy",
+            "consentError": "Please accept the Terms of Use and Privacy Policy to continue.",
+            "changeTitle": "Change your email address?",
+            "changeBody": "Changing email from {{from}} to {{to}} will reset the guide and clear any previous answers. Continue?",
+            "changeOk": "Change email",
+            "changeCancel": "Cancel"
+          }
         },
-        {
-          "id": "intro_closing",
-          "label": "Closing line",
-          "class": "intro-note-it",
-          "text": "Think of this as a conversation — one you can have at your own pace, at your kitchen table, with a cup of coffee."
-        }
-      ]
-    },
-    {
-      "id": "howto",
-      "type": "info",
-      "title": "How to use this guide",
-      "pdfPages": [2],
-      "persisted": false,
-      "note": "Page 3 — eyebrow + heading + body + the 'A note before you begin' explainer box. Rendered by buildHowto().",
-      "blocks": {
-        "body": {
-          "text": "You do not need to fill in every section. Start with whatever feels easy, skip anything you're unsure about, and come back later. When you are finished, you may download and print this guide and bring it to a contractor or designer conversation. Jaz's inline guidance appears in blue throughout, and if you would like more support through JAZ Design we provide that too.",
-          "class": "section-intro"
+        "chooser": {
+          "blocks": {
+            "title": {
+              "text": "Save My Guide",
+              "class": ""
+            },
+            "sub": {
+              "text": "Your answers are already saved. Pick what to do with them — choose any combination.",
+              "class": ""
+            },
+            "optDownloadTitle": {
+              "text": "Download a copy",
+              "class": ""
+            },
+            "optDownloadDesc": {
+              "text": "Saves a self-contained HTML file to this device you can open, finish, and share anytime.",
+              "class": ""
+            },
+            "optEmailTitle": {
+              "text": "Email Guide",
+              "class": ""
+            },
+            "optEmailDesc": {
+              "text": "Send a copy to yourself, another address, or both. Your own copy stays editable; anyone else gets a read-only copy.",
+              "class": ""
+            },
+            "optJazTitle": {
+              "text": "Send to JAZ Design",
+              "class": ""
+            },
+            "optJazDesc": {
+              "text": "Shares your answers with JAZ Design to start the conversation.",
+              "class": ""
+            },
+            "needsInternet": {
+              "text": "Needs internet — available once you're online.",
+              "class": ""
+            },
+            "jazLockedNote": {
+              "text": "This opens up once you book one of the support options on the Next Steps page. After your purchase is confirmed I'll email you, and this option switches on for the email address you used.",
+              "class": ""
+            },
+            "jazCheckFailNote": {
+              "text": "Couldn't check this just now. Check your connection and try again in a moment.",
+              "class": ""
+            },
+            "cancel": {
+              "text": "Cancel",
+              "class": ""
+            },
+            "done": {
+              "text": "Continue",
+              "class": ""
+            }
+          },
+          "strings": {
+            "emailToMeLabel": "Email to me",
+            "emailCopyToLabel": "Send copy to:",
+            "contactEmailLabel": "Your email (shared with JAZ Design)",
+            "contactNameLabel": "Name",
+            "contactPhoneLabel": "Phone",
+            "contactCityLabel": "City",
+            "contactStateLabel": "State",
+            "contactCommentsLabel": "Anything you'd like JAZ Design to know? (optional)",
+            "jazLockedLink": "See Next Steps & Optional Support",
+            "emailInvalidErr": "That email doesn’t look right.",
+            "emailEmptyErr": "Add an address or check “Email to me”.",
+            "emailBlockedErr": "That address can’t receive a copy. To share your answers with JAZ Design, use “Send to JAZ Design” below."
+          }
         },
-        "explainerHeading": {
-          "text": "A note before you begin",
-          "class": "explainer-h"
+        "system": {
+          "email": {
+            "id": "user_email",
+            "type": "text",
+            "required": true,
+            "note": "Primary key for the record in Supabase. Captured at the email gate (online) or baked into embedded JSON (offline)."
+          },
+          "timestamps": ["created_at", "updated_at"]
         },
-        "explainerP1": {
-          "text": "Your answers save automatically as you go.  There's nothing to lose if you step away and come back to finish later.",
-          "class": ""
+        "preview": {
+          "note": "Online: only page 1 (cover) shows before the email gate. Everything from Section One onward is gated.",
+          "gateAfter": "cover"
         },
-        "explainerP2": {
-          "text": "When you're ready, tap  {{save}}  at the top. You can download a copy, email one to yourself, or send it to JAZ Design. Each option creates a file you can keep or share.",
-          "class": ""
-        }
-      },
-      "strings": {
-        "saveLabel": "Save My Guide"
-      }
-    },
-    {
-      "id": "section_one",
-      "title": "Your Kitchen Vision & Priorities",
-      "pdfPages": [3, 4, 5],
-      "intro": "This is the dreaming part. Don't edit yourself yet, just notice what comes up. The goal isn't a final answer, it's an honest starting point.",
-      "fields": [
-        {
-          "id": "s1_why_remodel",
-          "type": "textarea",
-          "label": "Why are you remodeling your kitchen now?"
-        },
-        {
-          "id": "s1_top_three",
-          "type": "text_group",
-          "label": "What are the top three things that are not working in your current kitchen?",
-          "parts": [
+        "sections": [
+          {
+            "id": "intro",
+            "type": "info",
+            "pdfPages": [2],
+            "persisted": false,
+            "note": "Page 2 — JAZ's opening letter + coffee photo. Copy is in blocks[] (editable); style per block via class. Image = IMG.intro (still in template).",
+            "blocks": [
+              {
+                "id": "intro_lead",
+                "label": "Intro line",
+                "class": "intro-lead-it",
+                "text": "After 25 years of designing spaces, the one thing I know for certain is this:"
+              },
+              {
+                "id": "intro_headline",
+                "label": "Header line",
+                "class": "intro-lead-big",
+                "text": "Life changes, and so may your needs."
+              },
+              {
+                "id": "intro_body",
+                "label": "Body",
+                "class": "intro-body",
+                "text": "A kitchen that worked perfectly a decade ago may feel like it’s working against you now. And the kitchen you saw in a magazine, the one you’ve been quietly saving images of, may be someone else’s solution to someone else’s life. This guide isn’t about trends or finishes. It’s about you, how you actually live, what genuinely frustrates you, and what would make you smile every single morning. Take your time with it. Skip what doesn’t apply. Come back to the parts that make you think. And when you’re ready to talk through what you’ve discovered, I’m here."
+              },
+              {
+                "id": "intro_closing",
+                "label": "Closing line",
+                "class": "intro-note-it",
+                "text": "Think of this as a conversation — one you can have at your own pace, at your kitchen table, with a cup of coffee."
+              }
+            ]
+          },
+          {
+            "id": "howto",
+            "type": "info",
+            "title": "How to use this guide",
+            "pdfPages": [2],
+            "persisted": false,
+            "note": "Page 3 — eyebrow + heading + body + the 'A note before you begin' explainer box. Rendered by buildHowto().",
+            "blocks": {
+              "body": {
+                "text": "You do not need to fill in every section. Start with whatever feels easy, skip anything you're unsure about, and come back later. When you are finished, you may download and print this guide and bring it to a contractor or designer conversation. Jaz's inline guidance appears in blue throughout, and if you would like more support through JAZ Design we provide that too.",
+                "class": "section-intro"
+              },
+              "explainerHeading": {
+                "text": "A note before you begin",
+                "class": "explainer-h"
+              },
+              "explainerP1": {
+                "text": "Your answers save automatically as you go.  There's nothing to lose if you step away and come back to finish later.",
+                "class": ""
+              },
+              "explainerP2": {
+                "text": "When you're ready, tap  {{save}}  at the top. You can download a copy, email one to yourself, or send it to JAZ Design. Each option creates a file you can keep or share.",
+                "class": ""
+              }
+            },
+            "strings": {
+              "saveLabel": "Save My Guide"
+            }
+          },
+          {
+            "id": "section_one",
+            "title": "Your Kitchen Vision & Priorities",
+            "pdfPages": [3, 4, 5],
+            "intro": "This is the dreaming part. Don't edit yourself yet, just notice what comes up. The goal isn't a final answer, it's an honest starting point.",
+            "fields": [
+              {
+                "id": "s1_why_remodel",
+                "type": "textarea",
+                "label": "Why are you remodeling your kitchen now?"
+              },
+              {
+                "id": "s1_top_three",
+                "type": "text_group",
+                "label": "What are the top three things that are not working in your current kitchen?",
+                "parts": [
+                  {
+                    "id": "p1",
+                    "placeholder": "1."
+                  },
+                  {
+                    "id": "p2",
+                    "placeholder": "2."
+                  },
+                  {
+                    "id": "p3",
+                    "placeholder": "3."
+                  }
+                ]
+              },
+              {
+                "id": "s1_what_matters_most",
+                "type": "checkbox_group",
+                "label": "What matters most to you in your new kitchen?",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "better_storage",
+                    "label": "Better storage"
+                  },
+                  {
+                    "id": "improved_layout_workflow",
+                    "label": "Improved layout / workflow"
+                  },
+                  {
+                    "id": "more_counter_space",
+                    "label": "More counter space"
+                  },
+                  {
+                    "id": "better_lighting",
+                    "label": "Better lighting"
+                  },
+                  {
+                    "id": "seating_gathering_entertaining",
+                    "label": "Seating / gathering / entertaining"
+                  },
+                  {
+                    "id": "easier_cooking_workflow",
+                    "label": "Easier cooking workflow"
+                  },
+                  {
+                    "id": "updated_style",
+                    "label": "Updated style"
+                  },
+                  {
+                    "id": "better_resale_value",
+                    "label": "Better resale value"
+                  },
+                  {
+                    "id": "better_connection_nearby_rooms",
+                    "label": "Better connection to nearby rooms"
+                  }
+                ],
+                "other": {
+                  "id": "s1_what_matters_most_other",
+                  "type": "text",
+                  "label": "Other"
+                }
+              },
+              {
+                "id": "s1_who_uses_most",
+                "type": "textarea",
+                "label": "Who uses the kitchen most often?"
+              },
+              {
+                "id": "s1_how_use_now",
+                "type": "checkbox_group",
+                "label": "How do you use your kitchen now?",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "entertaining",
+                    "label": "Entertaining"
+                  },
+                  {
+                    "id": "quick_family_meals",
+                    "label": "Quick family meals"
+                  },
+                  {
+                    "id": "baking",
+                    "label": "Baking"
+                  },
+                  {
+                    "id": "working_island_table",
+                    "label": "Working at the island or table"
+                  },
+                  {
+                    "id": "multiple_cooks",
+                    "label": "Multiple people cooking at once"
+                  },
+                  {
+                    "id": "mostly_takeout_light",
+                    "label": "Mostly takeout / light use"
+                  }
+                ],
+                "other": {
+                  "id": "s1_how_use_now_other",
+                  "type": "text",
+                  "label": "Other"
+                }
+              },
+              {
+                "id": "s1_must_haves",
+                "type": "textarea",
+                "label": "What are your must-haves for the new space?"
+              },
+              {
+                "id": "s1_nice_to_have",
+                "type": "textarea",
+                "label": "What would be nice to have, but not essential?"
+              }
+            ]
+          },
+          {
+            "id": "section_two",
+            "title": "Scope & Budget Basics",
+            "pdfPages": [6, 7, 8],
+            "intro": "A thoughtful renovation begins with honest numbers. This isn’t about locking yourself in, it’s a compass.  ",
+            "fields": [
+              {
+                "id": "s2_remodel_level",
+                "type": "radio",
+                "label": "Remodel level — how big is this project?",
+                "hint": "Check the one that feels closest right now. You can always change your mind.",
+                "options": [
+                  {
+                    "id": "light_refresh",
+                    "label": "Light Refresh — mostly cosmetic (paint, hardware, a few fixtures or appliances)"
+                  },
+                  {
+                    "id": "mid_range_update",
+                    "label": "Mid-range Update — updating most finishes, maybe adjusting layout slightly"
+                  },
+                  {
+                    "id": "full_remodel",
+                    "label": "Full Remodel — major layout changes, new finishes throughout, possible structural work"
+                  }
+                ]
+              },
+              {
+                "id": "s2_budget_high_end",
+                "type": "money",
+                "label": "High end amount — Maximum Limit (including 15% contingency)",
+                "contingency": true
+              },
+              {
+                "id": "s2_budget_comfortable",
+                "type": "money",
+                "label": "Comfortable target amount (including 15% contingency)",
+                "contingency": true
+              },
+              {
+                "id": "s2_scope_cabinets",
+                "type": "checkbox_money_group",
+                "label": "Cabinets & Storage",
+                "groupHint": "Check all that apply. Leave dollar amounts blank for now; fill in as estimates come in.",
+                "options": [
+                  {
+                    "id": "new_cabinets",
+                    "label": "New cabinets"
+                  },
+                  {
+                    "id": "refacing_cabinets",
+                    "label": "Refacing existing cabinets"
+                  },
+                  {
+                    "id": "painting_cabinets",
+                    "label": "Painting existing cabinets"
+                  },
+                  {
+                    "id": "new_pantry_storage",
+                    "label": "New pantry or added storage"
+                  }
+                ]
+              },
+              {
+                "id": "s2_scope_appliances",
+                "type": "checkbox_group",
+                "label": "New or Updated Appliances",
+                "hint": "Check all that apply",
+                "moneyTotalId": "s2_scope_appliances_amount",
+                "note": "PDF groups all appliance checkboxes under a single shared $ amount, not per-item.",
+                "options": [
+                  {
+                    "id": "refrigerator",
+                    "label": "Refrigerator"
+                  },
+                  {
+                    "id": "dishwasher",
+                    "label": "Dishwasher"
+                  },
+                  {
+                    "id": "disposal",
+                    "label": "Disposal"
+                  },
+                  {
+                    "id": "oven",
+                    "label": "Oven"
+                  },
+                  {
+                    "id": "sinks",
+                    "label": "Sink/s"
+                  },
+                  {
+                    "id": "freezer",
+                    "label": "Freezer"
+                  },
+                  {
+                    "id": "range",
+                    "label": "Range"
+                  },
+                  {
+                    "id": "cooktop",
+                    "label": "Cook top"
+                  },
+                  {
+                    "id": "range_hood",
+                    "label": "Range hood"
+                  },
+                  {
+                    "id": "washer_dryer",
+                    "label": "Washer/Dryer"
+                  }
+                ],
+                "other": {
+                  "id": "s2_scope_appliances_other",
+                  "label": "Other"
+                },
+                "jazNoteAfter": {
+                  "type": "quote",
+                  "text": "Consider whether gas, electric, or a combination is best for your space — each has pros and cons, and your location may limit the options. A good conversation with a knowledgeable appliance rep or kitchen designer will help you find the right fit."
+                }
+              },
+              {
+                "id": "s2_scope_appliances_amount",
+                "type": "money",
+                "label": "Appliances amount"
+              },
+              {
+                "id": "s2_counters",
+                "type": "checkbox_group",
+                "label": "Counters",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "quartz",
+                    "label": "Quartz"
+                  },
+                  {
+                    "id": "granite_quartzite",
+                    "label": "Granite/quartzite"
+                  },
+                  {
+                    "id": "laminate",
+                    "label": "Laminate"
+                  },
+                  {
+                    "id": "wood_butcher_block",
+                    "label": "Wood/butcher block"
+                  },
+                  {
+                    "id": "stainless_steel",
+                    "label": "Stainless steel"
+                  },
+                  {
+                    "id": "concrete",
+                    "label": "Concrete"
+                  }
+                ],
+                "other": {
+                  "id": "s2_counters_other",
+                  "type": "text",
+                  "label": "Other"
+                },
+                "jazNoteBefore": {
+                  "type": "quote",
+                  "text": "When choosing counter and backsplash materials, weigh function as much as appearance. If you cook often, quartz can be a durable choice, while a small section of butcher block or stainless steel can add both function and character. For backsplash materials, think about ease of cleaning as well as style. Porcelain or glass tile with fewer grout lines can be simpler to maintain, and grout color is worth considering too.\nThink about how you actually use the space. Are you someone who tidies as you go, or do you tend to cook freely and clean up afterward? The way you live in the kitchen should help guide the materials you choose. A good designer can help point you in the right direction by asking the right questions."
+                }
+              },
+              {
+                "id": "s2_counters_amount",
+                "type": "money",
+                "label": "Counters Amount"
+              },
+              {
+                "id": "s2_backsplash",
+                "type": "checkbox_group",
+                "label": "Back splash",
+                "hint": "Check all that apply",
+                "note": "PDF listed 'Granite/quartzite' twice in this group; de-duplicated to one option. Confirmed with Jaz.",
+                "options": [
+                  {
+                    "id": "tile",
+                    "label": "Tile"
+                  },
+                  {
+                    "id": "granite_quartzite",
+                    "label": "Granite/quartzite"
+                  },
+                  {
+                    "id": "stainless_steel",
+                    "label": "Stainless steel"
+                  },
+                  {
+                    "id": "glass",
+                    "label": "Glass"
+                  },
+                  {
+                    "id": "none",
+                    "label": "None"
+                  }
+                ],
+                "other": {
+                  "id": "s2_backsplash_other",
+                  "type": "text",
+                  "label": "Other"
+                }
+              },
+              {
+                "id": "s2_backsplash_amount",
+                "type": "money",
+                "label": "Backsplash Amount"
+              },
+              {
+                "id": "s2_walls",
+                "type": "checkbox_group",
+                "label": "Walls",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "paint",
+                    "label": "Paint"
+                  },
+                  {
+                    "id": "wallpaper",
+                    "label": "Wallpaper"
+                  },
+                  {
+                    "id": "ship_lap",
+                    "label": "ship-lap / wood panel"
+                  },
+                  {
+                    "id": "wainscot",
+                    "label": "wainscot"
+                  }
+                ],
+                "other": {
+                  "id": "s2_walls_other",
+                  "type": "text",
+                  "label": "Other"
+                },
+                "jazNoteAfter": {
+                  "type": "quote",
+                  "text": "In older homes, wainscoting can be a beautiful way to connect the kitchen to nearby rooms or open areas. If you are considering this detail, think about how the height, profile, and style of the wainscot will work with your cabinet design so the room feels intentional rather than added on later."
+                }
+              },
+              {
+                "id": "s2_walls_amount",
+                "type": "money",
+                "label": "Walls Amount"
+              },
+              {
+                "id": "s2_lighting_electrical",
+                "type": "checkbox_group",
+                "label": "Lighting & Electrical",
+                "hint": "Check all that apply",
+                "moneyTotalId": "s2_lighting_electrical_amount",
+                "options": [
+                  {
+                    "id": "new_lighting_layout_fixtures",
+                    "label": "New Lighting Layout or Fixtures"
+                  },
+                  {
+                    "id": "additional_outlets_switches",
+                    "label": "Additional Outlets / switches"
+                  }
+                ],
+                "jazNoteAfter": {
+                  "type": "quote",
+                  "text": "One small detail that can make a big difference is the color, style, and texture of your outlets and switch plates. In a wood-tone kitchen, or any space without white walls, bright white outlets can draw more attention than you intended. Choosing devices and plates that quietly blend with the surrounding materials helps the eye stay focused on the parts of the kitchen you actually want to notice.  \n\nOnce you have a kitchen drawing, talk with your contractor early about outlet and switch placement so the new space is planned thoughtfully. This is also the time to review outlet colors, plate options, and styles. There are many beautiful choices now, including subtle colors, textured finishes, and clean modern designs that can feel intentional rather than simply functional."
+                }
+              },
+              {
+                "id": "s2_lighting_electrical_amount",
+                "type": "money",
+                "label": "Lighting & Electrical amount"
+              },
+              {
+                "id": "s2_flooring",
+                "type": "checkbox_group",
+                "label": "Flooring",
+                "hint": "Check all that apply",
+                "moneyTotalId": "s2_flooring_amount",
+                "options": [
+                  {
+                    "id": "hardwood_different",
+                    "label": "Hardwood: different"
+                  },
+                  {
+                    "id": "hardwood_match_existing",
+                    "label": "Hardwood: match existing"
+                  },
+                  {
+                    "id": "engineered_wood",
+                    "label": "Engineered wood"
+                  },
+                  {
+                    "id": "laminate",
+                    "label": "Laminate"
+                  },
+                  {
+                    "id": "tile",
+                    "label": "Tile"
+                  },
+                  {
+                    "id": "cork",
+                    "label": "Cork"
+                  },
+                  {
+                    "id": "bamboo",
+                    "label": "Bamboo"
+                  },
+                  {
+                    "id": "concrete",
+                    "label": "Concrete"
+                  },
+                  {
+                    "id": "epoxy_resin",
+                    "label": "Epoxy / Resin"
+                  }
+                ],
+                "other": {
+                  "id": "s2_flooring_other",
+                  "label": "Other"
+                },
+                "jazNoteAfter": {
+                  "type": "quote",
+                  "text": "If you want an open-concept space that flows into an adjoining room, consider carrying the same flooring throughout,  matching a great room's hardwood or tile into the kitchen helps tie the rooms together.\n\nHardwood can be a lovely option in a kitchen, especially if you want a softer feel underfoot and the warmth of a natural material. Just be sure to choose a finish and wood species that make sense for the way you live, cook, and maintain your home."
+                }
+              },
+              {
+                "id": "s2_flooring_amount",
+                "type": "money",
+                "label": "Flooring amount"
+              },
+              {
+                "id": "s2_layout_structural",
+                "type": "checkbox_group",
+                "label": "Layout & Structural",
+                "hint": "Estimates for this will be included in the contractor estimate. Check all that apply.",
+                "options": [
+                  {
+                    "id": "moving_appliances",
+                    "label": "Moving Appliances to new locations"
+                  },
+                  {
+                    "id": "moving_widening_openings",
+                    "label": "Moving or Widening openings"
+                  },
+                  {
+                    "id": "changing_door_window_locations",
+                    "label": "Adding / Changing door or window locations (incl. skylights or solar tubes)"
+                  },
+                  {
+                    "id": "adding_removing_wall",
+                    "label": "Adding / removing a wall"
+                  },
+                  {
+                    "id": "dont_know_yet",
+                    "label": "I don't know yet"
+                  }
+                ],
+                "other": {
+                  "id": "s2_layout_structural_other",
+                  "type": "text",
+                  "label": "Other structural changes"
+                }
+              }
+            ]
+          },
+          {
+            "id": "section_three",
+            "title": "Layout, Storage & Daily Life",
+            "pdfPages": [9, 10, 11],
+            "intro": "This section is about your kitchen and the way it supports daily life. Your rhythms, your constraints, your routines, and your priorities all matter. A good design starts here, with choices that support the way you actually live.",
+            "fields": [
+              {
+                "id": "s3_layout_frustrations",
+                "type": "textarea",
+                "label": "What feels hard or frustrating about moving through your kitchen right now?",
+                "hint": "e.g. prep space, traffic flow, unloading groceries, too many people in one area, not enough room near the stove or sink."
+              },
+              {
+                "id": "s3_layout_improvements",
+                "type": "checkbox_group_priority",
+                "label": "Which layout improvements matter most to you?",
+                "hint": "Check all that apply. You can also number them 1-9 (or more) to prioritize.",
+                "priorityRange": [1, 9],
+                "options": [
+                  {
+                    "id": "more_prep_space",
+                    "label": "More prep space"
+                  },
+                  {
+                    "id": "better_traffic_flow",
+                    "label": "Better traffic flow / fewer bottlenecks"
+                  },
+                  {
+                    "id": "connection_nearby_rooms_open_concept",
+                    "label": "Ease of connection to nearby rooms / open concept"
+                  },
+                  {
+                    "id": "space_multiple_cooks",
+                    "label": "Space for more than one person to cook at a time"
+                  },
+                  {
+                    "id": "place_for_everything",
+                    "label": "A place for everything"
+                  },
+                  {
+                    "id": "better_cleanup_dishwashing",
+                    "label": "Better cleanup / dishwashing space"
+                  },
+                  {
+                    "id": "keep_layout_same",
+                    "label": "Keep the layout same"
+                  },
+                  {
+                    "id": "open_to_new_layout",
+                    "label": "Open to a completely new layout"
+                  }
+                ],
+                "other": {
+                  "id": "s3_layout_improvements_other",
+                  "type": "text",
+                  "label": "Other"
+                }
+              },
+              {
+                "id": "s3_storage_needs",
+                "type": "checkbox_group",
+                "label": "What do you need better storage for?",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "pots_pans",
+                    "label": "Pots and pans"
+                  },
+                  {
+                    "id": "everyday_dishes",
+                    "label": "Everyday dishes"
+                  },
+                  {
+                    "id": "glassware_serving",
+                    "label": "Glassware and serving pieces"
+                  },
+                  {
+                    "id": "food_pantry",
+                    "label": "Food and pantry items"
+                  },
+                  {
+                    "id": "small_appliances",
+                    "label": "Small appliances"
+                  },
+                  {
+                    "id": "baking_supplies",
+                    "label": "Baking supplies"
+                  },
+                  {
+                    "id": "trash_recycling",
+                    "label": "Trash and recycling"
+                  },
+                  {
+                    "id": "cleaning_supplies",
+                    "label": "Cleaning supplies"
+                  },
+                  {
+                    "id": "storage_containers",
+                    "label": "Storage containers / tupperware"
+                  },
+                  {
+                    "id": "pet_food_items",
+                    "label": "Pet food and pet items"
+                  }
+                ],
+                "other": {
+                  "id": "s3_storage_needs_other",
+                  "type": "text",
+                  "label": "Other"
+                }
+              },
+              {
+                "id": "s3_storage_features",
+                "type": "checkbox_group",
+                "label": "What kind of storage features would help most?",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "deep_drawers",
+                    "label": "Deep drawers"
+                  },
+                  {
+                    "id": "pull_out_pantry",
+                    "label": "Pull-out pantry storage"
+                  },
+                  {
+                    "id": "hidden_trash_recycling",
+                    "label": "Hidden trash / recycling"
+                  },
+                  {
+                    "id": "tray_baking_sheet_storage",
+                    "label": "Tray or baking sheet storage"
+                  },
+                  {
+                    "id": "open_shelving",
+                    "label": "Open shelving"
+                  },
+                  {
+                    "id": "closed_cabinets_some_glass",
+                    "label": "Closed cabinets only but maybe some glass"
+                  },
+                  {
+                    "id": "island_storage",
+                    "label": "Island storage"
+                  }
+                ]
+              },
+              {
+                "id": "s3_daily_use",
+                "type": "checkbox_group",
+                "label": "Besides cooking, what else happens in your kitchen?",
+                "hint": "Check all that apply",
+                "options": [
+                  {
+                    "id": "casual_dining",
+                    "label": "Casual dining"
+                  },
+                  {
+                    "id": "entertaining",
+                    "label": "Entertaining"
+                  },
+                  {
+                    "id": "working_island_table",
+                    "label": "Working at the island or table"
+                  },
+                  {
+                    "id": "kids_gathering_spot",
+                    "label": "Kids / gathering spot"
+                  },
+                  {
+                    "id": "coffee_beverage_station",
+                    "label": "Coffee or beverage station"
+                  },
+                  {
+                    "id": "pet_feeding_area",
+                    "label": "Pet feeding area"
+                  },
+                  {
+                    "id": "facetiming_podcasting",
+                    "label": "Facetiming / podcasting"
+                  }
+                ],
+                "other": {
+                  "id": "s3_daily_use_other",
+                  "type": "text",
+                  "label": "Other"
+                },
+                "jazNoteAfter": {
+                  "type": "quote",
+                  "text": "If video calls are part of your daily life, think about how your kitchen reads on camera. A clean, well-lit wall, thoughtful lighting, or open shelving styled with intention can create a backdrop that feels calm, polished, and personal."
+                }
+              },
+              {
+                "id": "s3_seating",
+                "type": "radio",
+                "label": "What kind of seating do you want, if any?",
+                "options": [
+                  {
+                    "id": "seating_2",
+                    "label": "Seating for 2"
+                  },
+                  {
+                    "id": "seating_3_4",
+                    "label": "Seating for 3-4"
+                  },
+                  {
+                    "id": "seating_4_6",
+                    "label": "Seating for 4-6"
+                  },
+                  {
+                    "id": "casual_family_meals",
+                    "label": "Space for casual family meals"
+                  },
+                  {
+                    "id": "not_sure_yet",
+                    "label": "Not sure yet"
+                  }
+                ]
+              },
+              {
+                "id": "s3_features_to_keep",
+                "type": "textarea",
+                "label": "Are there any features you want to keep, if possible?",
+                "hint": "e.g. a window, a view, natural light, a favorite appliance, or the basic footprint of the room."
+              },
+              {
+                "id": "s3_changes_curious_about",
+                "type": "textarea",
+                "label": "Are there any changes you're curious about, even if you're not sure yet?",
+                "hint": "e.g. an island, a wider opening, more pantry storage, moving appliances, a coffee station, changing where the sink goes."
+              }
+            ]
+          },
+          {
+            "id": "section_four",
+            "type": "info",
+            "title": "Next Steps & Optional Support",
+            "pdfPages": [12],
+            "persisted": false,
+            "intro": "Whether you continue on your own, work with a contractor, or decide to bring in design help, the work you've done in this guide gives you a much stronger starting point. You'll have clearer conversations, ask better questions, and make decisions with more confidence.\n\nIf you are not sure what comes next, or you would simply like another set of experienced eyes before moving forward, these support options are designed to help you make clearer, more confident decisions.",
+            "services": [
+              {
+                "id": "email_check_in",
+                "name": "Designer Email Check-In",
+                "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/4efed045-3cb3-43fb-baaf-1fa53398250c/kg-email-check-in.png?content-type=image%2Fpng",
+                "imageHref": "https://www.jazdesign.com/guidance?p=email",
+                "imageSide": "right",
+                "desc": "A one-time email review of your completed guide.\n\nYou send: your completed pages, a few photos of your current kitchen, and any inspiration images you'd like me to see.\n\nYou receive: one detailed response with key observations about your priorities, layout, and storage needs — and a few practical suggestions to help you move forward with clarity and confidence."
+              },
+              {
+                "id": "planning_call",
+                "name": "Kitchen Planning Consultation ",
+                "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/f30a8664-ded6-4824-b626-746a8ec0f06b/kg-planning-call.png?content-type=image%2Fpng",
+                "imageHref": "https://www.jazdesign.com/guidance?p=call",
+                "imageSide": "right",
+                "desc": "A more detailed review for homeowners who want help thinking through the bigger picture before making major kitchen decisions.\n\nYou send:\nYour completed Kitchen Renovation Planning Guide\nCurrent photos of the space\nAny specific questions, concerns, or decisions you are weighing\n\nYou receive:\nA written email with organized notes and recommendations\nObservations about priorities, layout, storage, budget awareness, and next steps\nGuidance on what may be worth keeping, changing, or exploring further\nOne optional 30-minute follow-up call to talk through the notes and clarify next steps"
+              },
+              {
+                "id": "concept_layout_sketch",
+                "name": "Concept Layout Sketch",
+                "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/d237edf2-e5fb-4ebe-8ea6-6491866b2a1e/kg-layout-sketch.png?content-type=image%2Fpng",
+                "imageHref": "https://www.jazdesign.com/guidance?p=sketch",
+                "imageSide": "right",
+                "desc": "A conceptual planning upgrade based on what you provide.\n\nYou send: your completed guide, photos of the space, and basic room measurements.\n\nYou receive: one conceptual layout sketch, one or two simple views or elevations, and short written notes explaining the main ideas.\n\nThis is intended to help you visualize possibilities — not a construction drawing or permit set. Dimensions and code compliance are verified later by your contractor."
+              }
+            ],
+            "cta": "For current availability, pricing, or to get started: jazdesign.com/guide"
+          }
+        ],
+        "images": {
+          "urls": {
+            "cover": {
+              "url": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/0ae94277-c827-4f20-8ac6-93461226beff/guide-kitchen-sunlight.jpg?content-type=image%2Fjpeg",
+              "alt": "Sunny kitchen with wood cabinetry"
+            },
+            "intro": {
+              "url": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/84cd6308-0d00-468b-9f1d-e120ae1e55b1/guide-kitchen-coffee.jpg?content-type=image%2Fjpeg",
+              "alt": "A person enjoying coffee in a bright kitchen"
+            }
+          },
+          "note": "URLs TBD — Jaz to host on jazdesign.com. Use placeholders until provided. Inventory below.",
+          "inventory": [
             {
-              "id": "p1",
-              "placeholder": "1."
+              "id": "logo_jd",
+              "where": "cover + page 2 header",
+              "desc": "JD / JAZ DESIGN logo",
+              "context": "downloaded/finalized header only — NOT shown in the on-site embed (Squarespace page already branded). Centered."
             },
             {
-              "id": "p2",
-              "placeholder": "2."
+              "id": "cover_kitchen",
+              "where": "cover",
+              "desc": "Sunlit kitchen with window, teapot, wood cabinets"
             },
             {
-              "id": "p3",
-              "placeholder": "3."
+              "id": "intro_woman_coffee",
+              "where": "page 2",
+              "desc": "Woman holding coffee mug in bright kitchen"
+            },
+            {
+              "id": "section_two_moodboard",
+              "where": "page 8",
+              "desc": "Flat-lay of materials, samples, faucet, sketch, kitchen photo"
             }
           ]
         },
-        {
-          "id": "s1_what_matters_most",
-          "type": "checkbox_group",
-          "label": "What matters most to you in your new kitchen?",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "better_storage",
-              "label": "Better storage"
-            },
-            {
-              "id": "improved_layout_workflow",
-              "label": "Improved layout / workflow"
-            },
-            {
-              "id": "more_counter_space",
-              "label": "More counter space"
-            },
-            {
-              "id": "better_lighting",
-              "label": "Better lighting"
-            },
-            {
-              "id": "seating_gathering_entertaining",
-              "label": "Seating / gathering / entertaining"
-            },
-            {
-              "id": "easier_cooking_workflow",
-              "label": "Easier cooking workflow"
-            },
-            {
-              "id": "updated_style",
-              "label": "Updated style"
-            },
-            {
-              "id": "better_resale_value",
-              "label": "Better resale value"
-            },
-            {
-              "id": "better_connection_nearby_rooms",
-              "label": "Better connection to nearby rooms"
-            }
-          ],
-          "other": {
-            "id": "s1_what_matters_most_other",
-            "type": "text",
-            "label": "Other"
-          }
-        },
-        {
-          "id": "s1_who_uses_most",
-          "type": "textarea",
-          "label": "Who uses the kitchen most often?"
-        },
-        {
-          "id": "s1_how_use_now",
-          "type": "checkbox_group",
-          "label": "How do you use your kitchen now?",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "entertaining",
-              "label": "Entertaining"
-            },
-            {
-              "id": "quick_family_meals",
-              "label": "Quick family meals"
-            },
-            {
-              "id": "baking",
-              "label": "Baking"
-            },
-            {
-              "id": "working_island_table",
-              "label": "Working at the island or table"
-            },
-            {
-              "id": "multiple_cooks",
-              "label": "Multiple people cooking at once"
-            },
-            {
-              "id": "mostly_takeout_light",
-              "label": "Mostly takeout / light use"
-            }
-          ],
-          "other": {
-            "id": "s1_how_use_now_other",
-            "type": "text",
-            "label": "Other"
-          }
-        },
-        {
-          "id": "s1_must_haves",
-          "type": "textarea",
-          "label": "What are your must-haves for the new space?"
-        },
-        {
-          "id": "s1_nice_to_have",
-          "type": "textarea",
-          "label": "What would be nice to have, but not essential?"
-        }
-      ]
-    },
-    {
-      "id": "section_two",
-      "title": "Scope & Budget Basics",
-      "pdfPages": [6, 7, 8],
-      "intro": "A thoughtful renovation begins with honest numbers. This isn’t about locking yourself in, it’s a compass.  ",
-      "fields": [
-        {
-          "id": "s2_remodel_level",
-          "type": "radio",
-          "label": "Remodel level — how big is this project?",
-          "hint": "Check the one that feels closest right now. You can always change your mind.",
-          "options": [
-            {
-              "id": "light_refresh",
-              "label": "Light Refresh — mostly cosmetic (paint, hardware, a few fixtures or appliances)"
-            },
-            {
-              "id": "mid_range_update",
-              "label": "Mid-range Update — updating most finishes, maybe adjusting layout slightly"
-            },
-            {
-              "id": "full_remodel",
-              "label": "Full Remodel — major layout changes, new finishes throughout, possible structural work"
-            }
-          ]
-        },
-        {
-          "id": "s2_budget_high_end",
-          "type": "money",
-          "label": "High end amount — Maximum Limit (including 15% contingency)",
-          "contingency": true
-        },
-        {
-          "id": "s2_budget_comfortable",
-          "type": "money",
-          "label": "Comfortable target amount (including 15% contingency)",
-          "contingency": true
-        },
-        {
-          "id": "s2_scope_cabinets",
-          "type": "checkbox_money_group",
-          "label": "Cabinets & Storage",
-          "groupHint": "Check all that apply. Leave dollar amounts blank for now; fill in as estimates come in.",
-          "options": [
-            {
-              "id": "new_cabinets",
-              "label": "New cabinets"
-            },
-            {
-              "id": "refacing_cabinets",
-              "label": "Refacing existing cabinets"
-            },
-            {
-              "id": "painting_cabinets",
-              "label": "Painting existing cabinets"
-            },
-            {
-              "id": "new_pantry_storage",
-              "label": "New pantry or added storage"
-            }
-          ]
-        },
-        {
-          "id": "s2_scope_appliances",
-          "type": "checkbox_group",
-          "label": "New or Updated Appliances",
-          "hint": "Check all that apply",
-          "moneyTotalId": "s2_scope_appliances_amount",
-          "note": "PDF groups all appliance checkboxes under a single shared $ amount, not per-item.",
-          "options": [
-            {
-              "id": "refrigerator",
-              "label": "Refrigerator"
-            },
-            {
-              "id": "dishwasher",
-              "label": "Dishwasher"
-            },
-            {
-              "id": "disposal",
-              "label": "Disposal"
-            },
-            {
-              "id": "oven",
-              "label": "Oven"
-            },
-            {
-              "id": "sinks",
-              "label": "Sink/s"
-            },
-            {
-              "id": "freezer",
-              "label": "Freezer"
-            },
-            {
-              "id": "range",
-              "label": "Range"
-            },
-            {
-              "id": "cooktop",
-              "label": "Cook top"
-            },
-            {
-              "id": "range_hood",
-              "label": "Range hood"
-            },
-            {
-              "id": "washer_dryer",
-              "label": "Washer/Dryer"
-            }
-          ],
-          "other": {
-            "id": "s2_scope_appliances_other",
-            "label": "Other"
-          },
-          "jazNoteAfter": {
-            "type": "quote",
-            "text": "Consider whether gas, electric, or a combination is best for your space — each has pros and cons, and your location may limit the options. A good conversation with a knowledgeable appliance rep or kitchen designer will help you find the right fit."
-          }
-        },
-        {
-          "id": "s2_scope_appliances_amount",
-          "type": "money",
-          "label": "Appliances amount"
-        },
-        {
-          "id": "s2_counters",
-          "type": "checkbox_group",
-          "label": "Counters",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "quartz",
-              "label": "Quartz"
-            },
-            {
-              "id": "granite_quartzite",
-              "label": "Granite/quartzite"
-            },
-            {
-              "id": "laminate",
-              "label": "Laminate"
-            },
-            {
-              "id": "wood_butcher_block",
-              "label": "Wood/butcher block"
-            },
-            {
-              "id": "stainless_steel",
-              "label": "Stainless steel"
-            },
-            {
-              "id": "concrete",
-              "label": "Concrete"
-            }
-          ],
-          "other": {
-            "id": "s2_counters_other",
-            "type": "text",
-            "label": "Other"
-          },
-          "jazNoteBefore": {
-            "type": "quote",
-            "text": "When choosing counter and backsplash materials, weigh function as much as appearance. If you cook often, quartz can be a durable choice, while a small section of butcher block or stainless steel can add both function and character. For backsplash materials, think about ease of cleaning as well as style. Porcelain or glass tile with fewer grout lines can be simpler to maintain, and grout color is worth considering too.\nThink about how you actually use the space. Are you someone who tidies as you go, or do you tend to cook freely and clean up afterward? The way you live in the kitchen should help guide the materials you choose. A good designer can help point you in the right direction by asking the right questions."
-          }
-        },
-        {
-          "id": "s2_counters_amount",
-          "type": "money",
-          "label": "Counters Amount"
-        },
-        {
-          "id": "s2_backsplash",
-          "type": "checkbox_group",
-          "label": "Back splash",
-          "hint": "Check all that apply",
-          "note": "PDF listed 'Granite/quartzite' twice in this group; de-duplicated to one option. Confirmed with Jaz.",
-          "options": [
-            {
-              "id": "tile",
-              "label": "Tile"
-            },
-            {
-              "id": "granite_quartzite",
-              "label": "Granite/quartzite"
-            },
-            {
-              "id": "stainless_steel",
-              "label": "Stainless steel"
-            },
-            {
-              "id": "glass",
-              "label": "Glass"
-            },
-            {
-              "id": "none",
-              "label": "None"
-            }
-          ],
-          "other": {
-            "id": "s2_backsplash_other",
-            "type": "text",
-            "label": "Other"
-          }
-        },
-        {
-          "id": "s2_backsplash_amount",
-          "type": "money",
-          "label": "Backsplash Amount"
-        },
-        {
-          "id": "s2_walls",
-          "type": "checkbox_group",
-          "label": "Walls",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "paint",
-              "label": "Paint"
-            },
-            {
-              "id": "wallpaper",
-              "label": "Wallpaper"
-            },
-            {
-              "id": "ship_lap",
-              "label": "ship-lap / wood panel"
-            },
-            {
-              "id": "wainscot",
-              "label": "wainscot"
-            }
-          ],
-          "other": {
-            "id": "s2_walls_other",
-            "type": "text",
-            "label": "Other"
-          },
-          "jazNoteAfter": {
-            "type": "quote",
-            "text": "In older homes, wainscoting can be a beautiful way to connect the kitchen to nearby rooms or open areas. If you are considering this detail, think about how the height, profile, and style of the wainscot will work with your cabinet design so the room feels intentional rather than added on later."
-          }
-        },
-        {
-          "id": "s2_walls_amount",
-          "type": "money",
-          "label": "Walls Amount"
-        },
-        {
-          "id": "s2_lighting_electrical",
-          "type": "checkbox_group",
-          "label": "Lighting & Electrical",
-          "hint": "Check all that apply",
-          "moneyTotalId": "s2_lighting_electrical_amount",
-          "options": [
-            {
-              "id": "new_lighting_layout_fixtures",
-              "label": "New Lighting Layout or Fixtures"
-            },
-            {
-              "id": "additional_outlets_switches",
-              "label": "Additional Outlets / switches"
-            }
-          ],
-          "jazNoteAfter": {
-            "type": "quote",
-            "text": "One small detail that can make a big difference is the color, style, and texture of your outlets and switch plates. In a wood-tone kitchen, or any space without white walls, bright white outlets can draw more attention than you intended. Choosing devices and plates that quietly blend with the surrounding materials helps the eye stay focused on the parts of the kitchen you actually want to notice.  \n\nOnce you have a kitchen drawing, talk with your contractor early about outlet and switch placement so the new space is planned thoughtfully. This is also the time to review outlet colors, plate options, and styles. There are many beautiful choices now, including subtle colors, textured finishes, and clean modern designs that can feel intentional rather than simply functional."
-          }
-        },
-        {
-          "id": "s2_lighting_electrical_amount",
-          "type": "money",
-          "label": "Lighting & Electrical amount"
-        },
-        {
-          "id": "s2_flooring",
-          "type": "checkbox_group",
-          "label": "Flooring",
-          "hint": "Check all that apply",
-          "moneyTotalId": "s2_flooring_amount",
-          "options": [
-            {
-              "id": "hardwood_different",
-              "label": "Hardwood: different"
-            },
-            {
-              "id": "hardwood_match_existing",
-              "label": "Hardwood: match existing"
-            },
-            {
-              "id": "engineered_wood",
-              "label": "Engineered wood"
-            },
-            {
-              "id": "laminate",
-              "label": "Laminate"
-            },
-            {
-              "id": "tile",
-              "label": "Tile"
-            },
-            {
-              "id": "cork",
-              "label": "Cork"
-            },
-            {
-              "id": "bamboo",
-              "label": "Bamboo"
-            },
-            {
-              "id": "concrete",
-              "label": "Concrete"
-            },
-            {
-              "id": "epoxy_resin",
-              "label": "Epoxy / Resin"
-            }
-          ],
-          "other": {
-            "id": "s2_flooring_other",
-            "label": "Other"
-          },
-          "jazNoteAfter": {
-            "type": "quote",
-            "text": "If you want an open-concept space that flows into an adjoining room, consider carrying the same flooring throughout,  matching a great room's hardwood or tile into the kitchen helps tie the rooms together.\n\nHardwood can be a lovely option in a kitchen, especially if you want a softer feel underfoot and the warmth of a natural material. Just be sure to choose a finish and wood species that make sense for the way you live, cook, and maintain your home."
-          }
-        },
-        {
-          "id": "s2_flooring_amount",
-          "type": "money",
-          "label": "Flooring amount"
-        },
-        {
-          "id": "s2_layout_structural",
-          "type": "checkbox_group",
-          "label": "Layout & Structural",
-          "hint": "Estimates for this will be included in the contractor estimate. Check all that apply.",
-          "options": [
-            {
-              "id": "moving_appliances",
-              "label": "Moving Appliances to new locations"
-            },
-            {
-              "id": "moving_widening_openings",
-              "label": "Moving or Widening openings"
-            },
-            {
-              "id": "changing_door_window_locations",
-              "label": "Adding / Changing door or window locations (incl. skylights or solar tubes)"
-            },
-            {
-              "id": "adding_removing_wall",
-              "label": "Adding / removing a wall"
-            },
-            {
-              "id": "dont_know_yet",
-              "label": "I don't know yet"
-            }
-          ],
-          "other": {
-            "id": "s2_layout_structural_other",
-            "type": "text",
-            "label": "Other structural changes"
-          }
-        }
-      ]
-    },
-    {
-      "id": "section_three",
-      "title": "Layout, Storage & Daily Life",
-      "pdfPages": [9, 10, 11],
-      "intro": "This section is about your kitchen and the way it supports daily life. Your rhythms, your constraints, your routines, and your priorities all matter. A good design starts here, with choices that support the way you actually live.",
-      "fields": [
-        {
-          "id": "s3_layout_frustrations",
-          "type": "textarea",
-          "label": "What feels hard or frustrating about moving through your kitchen right now?",
-          "hint": "e.g. prep space, traffic flow, unloading groceries, too many people in one area, not enough room near the stove or sink."
-        },
-        {
-          "id": "s3_layout_improvements",
-          "type": "checkbox_group_priority",
-          "label": "Which layout improvements matter most to you?",
-          "hint": "Check all that apply. You can also number them 1-9 (or more) to prioritize.",
-          "priorityRange": [1, 9],
-          "options": [
-            {
-              "id": "more_prep_space",
-              "label": "More prep space"
-            },
-            {
-              "id": "better_traffic_flow",
-              "label": "Better traffic flow / fewer bottlenecks"
-            },
-            {
-              "id": "connection_nearby_rooms_open_concept",
-              "label": "Ease of connection to nearby rooms / open concept"
-            },
-            {
-              "id": "space_multiple_cooks",
-              "label": "Space for more than one person to cook at a time"
-            },
-            {
-              "id": "place_for_everything",
-              "label": "A place for everything"
-            },
-            {
-              "id": "better_cleanup_dishwashing",
-              "label": "Better cleanup / dishwashing space"
-            },
-            {
-              "id": "keep_layout_same",
-              "label": "Keep the layout same"
-            },
-            {
-              "id": "open_to_new_layout",
-              "label": "Open to a completely new layout"
-            }
-          ],
-          "other": {
-            "id": "s3_layout_improvements_other",
-            "type": "text",
-            "label": "Other"
-          }
-        },
-        {
-          "id": "s3_storage_needs",
-          "type": "checkbox_group",
-          "label": "What do you need better storage for?",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "pots_pans",
-              "label": "Pots and pans"
-            },
-            {
-              "id": "everyday_dishes",
-              "label": "Everyday dishes"
-            },
-            {
-              "id": "glassware_serving",
-              "label": "Glassware and serving pieces"
-            },
-            {
-              "id": "food_pantry",
-              "label": "Food and pantry items"
-            },
-            {
-              "id": "small_appliances",
-              "label": "Small appliances"
-            },
-            {
-              "id": "baking_supplies",
-              "label": "Baking supplies"
-            },
-            {
-              "id": "trash_recycling",
-              "label": "Trash and recycling"
-            },
-            {
-              "id": "cleaning_supplies",
-              "label": "Cleaning supplies"
-            },
-            {
-              "id": "storage_containers",
-              "label": "Storage containers / tupperware"
-            },
-            {
-              "id": "pet_food_items",
-              "label": "Pet food and pet items"
-            }
-          ],
-          "other": {
-            "id": "s3_storage_needs_other",
-            "type": "text",
-            "label": "Other"
-          }
-        },
-        {
-          "id": "s3_storage_features",
-          "type": "checkbox_group",
-          "label": "What kind of storage features would help most?",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "deep_drawers",
-              "label": "Deep drawers"
-            },
-            {
-              "id": "pull_out_pantry",
-              "label": "Pull-out pantry storage"
-            },
-            {
-              "id": "hidden_trash_recycling",
-              "label": "Hidden trash / recycling"
-            },
-            {
-              "id": "tray_baking_sheet_storage",
-              "label": "Tray or baking sheet storage"
-            },
-            {
-              "id": "open_shelving",
-              "label": "Open shelving"
-            },
-            {
-              "id": "closed_cabinets_some_glass",
-              "label": "Closed cabinets only but maybe some glass"
-            },
-            {
-              "id": "island_storage",
-              "label": "Island storage"
-            }
-          ]
-        },
-        {
-          "id": "s3_daily_use",
-          "type": "checkbox_group",
-          "label": "Besides cooking, what else happens in your kitchen?",
-          "hint": "Check all that apply",
-          "options": [
-            {
-              "id": "casual_dining",
-              "label": "Casual dining"
-            },
-            {
-              "id": "entertaining",
-              "label": "Entertaining"
-            },
-            {
-              "id": "working_island_table",
-              "label": "Working at the island or table"
-            },
-            {
-              "id": "kids_gathering_spot",
-              "label": "Kids / gathering spot"
-            },
-            {
-              "id": "coffee_beverage_station",
-              "label": "Coffee or beverage station"
-            },
-            {
-              "id": "pet_feeding_area",
-              "label": "Pet feeding area"
-            },
-            {
-              "id": "facetiming_podcasting",
-              "label": "Facetiming / podcasting"
-            }
-          ],
-          "other": {
-            "id": "s3_daily_use_other",
-            "type": "text",
-            "label": "Other"
-          },
-          "jazNoteAfter": {
-            "type": "quote",
-            "text": "If video calls are part of your daily life, think about how your kitchen reads on camera. A clean, well-lit wall, thoughtful lighting, or open shelving styled with intention can create a backdrop that feels calm, polished, and personal."
-          }
-        },
-        {
-          "id": "s3_seating",
-          "type": "radio",
-          "label": "What kind of seating do you want, if any?",
-          "options": [
-            {
-              "id": "seating_2",
-              "label": "Seating for 2"
-            },
-            {
-              "id": "seating_3_4",
-              "label": "Seating for 3-4"
-            },
-            {
-              "id": "seating_4_6",
-              "label": "Seating for 4-6"
-            },
-            {
-              "id": "casual_family_meals",
-              "label": "Space for casual family meals"
-            },
-            {
-              "id": "not_sure_yet",
-              "label": "Not sure yet"
-            }
-          ]
-        },
-        {
-          "id": "s3_features_to_keep",
-          "type": "textarea",
-          "label": "Are there any features you want to keep, if possible?",
-          "hint": "e.g. a window, a view, natural light, a favorite appliance, or the basic footprint of the room."
-        },
-        {
-          "id": "s3_changes_curious_about",
-          "type": "textarea",
-          "label": "Are there any changes you're curious about, even if you're not sure yet?",
-          "hint": "e.g. an island, a wider opening, more pantry storage, moving appliances, a coffee station, changing where the sink goes."
-        }
-      ]
-    },
-    {
-      "id": "section_four",
-      "type": "info",
-      "title": "Next Steps & Optional Support",
-      "pdfPages": [12],
-      "persisted": false,
-      "intro": "Whether you continue on your own, work with a contractor, or decide to bring in design help, the work you've done in this guide gives you a much stronger starting point. You'll have clearer conversations, ask better questions, and make decisions with more confidence.\n\nIf you are not sure what comes next, or you would simply like another set of experienced eyes before moving forward, these support options are designed to help you make clearer, more confident decisions.",
-      "services": [
-        {
-          "id": "email_check_in",
-          "name": "Designer Email Check-In",
-          "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/4efed045-3cb3-43fb-baaf-1fa53398250c/kg-email-check-in.png?content-type=image%2Fpng",
-          "imageHref": "https://www.jazdesign.com/guidance?p=email",
-          "imageSide": "right",
-          "desc": "A one-time email review of your completed guide.\n\nYou send: your completed pages, a few photos of your current kitchen, and any inspiration images you'd like me to see.\n\nYou receive: one detailed response with key observations about your priorities, layout, and storage needs — and a few practical suggestions to help you move forward with clarity and confidence."
-        },
-        {
-          "id": "planning_call",
-          "name": "Kitchen Planning Consultation ",
-          "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/f30a8664-ded6-4824-b626-746a8ec0f06b/kg-planning-call.png?content-type=image%2Fpng",
-          "imageHref": "https://www.jazdesign.com/guidance?p=call",
-          "imageSide": "right",
-          "desc": "A more detailed review for homeowners who want help thinking through the bigger picture before making major kitchen decisions.\n\nYou send:\nYour completed Kitchen Renovation Planning Guide\nCurrent photos of the space\nAny specific questions, concerns, or decisions you are weighing\n\nYou receive:\nA written email with organized notes and recommendations\nObservations about priorities, layout, storage, budget awareness, and next steps\nGuidance on what may be worth keeping, changing, or exploring further\nOne optional 30-minute follow-up call to talk through the notes and clarify next steps"
-        },
-        {
-          "id": "concept_layout_sketch",
-          "name": "Concept Layout Sketch",
-          "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/d237edf2-e5fb-4ebe-8ea6-6491866b2a1e/kg-layout-sketch.png?content-type=image%2Fpng",
-          "imageHref": "https://www.jazdesign.com/guidance?p=sketch",
-          "imageSide": "right",
-          "desc": "A conceptual planning upgrade based on what you provide.\n\nYou send: your completed guide, photos of the space, and basic room measurements.\n\nYou receive: one conceptual layout sketch, one or two simple views or elevations, and short written notes explaining the main ideas.\n\nThis is intended to help you visualize possibilities — not a construction drawing or permit set. Dimensions and code compliance are verified later by your contractor."
-        }
-      ],
-      "cta": "For current availability, pricing, or to get started: jazdesign.com/guide"
-    }
-  ],
-  "images": {
-    "urls": {
-      "cover": {
-        "url": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/0ae94277-c827-4f20-8ac6-93461226beff/guide-kitchen-sunlight.jpg?content-type=image%2Fjpeg",
-        "alt": "Sunny kitchen with wood cabinetry"
-      },
-      "intro": {
-        "url": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/84cd6308-0d00-468b-9f1d-e120ae1e55b1/guide-kitchen-coffee.jpg?content-type=image%2Fjpeg",
-        "alt": "A person enjoying coffee in a bright kitchen"
+        "openFlags": [
+          "Backsplash options list 'Granite/quartzite' twice in the PDF; de-duplicated here. Confirm intended set with Jaz.",
+          "Appliances and Counters/Backsplash/Walls each use ONE shared $ amount (not per-item) per the PDF layout. Confirmed against pages 6-7.",
+          "Image URLs pending (see images.note)."
+        ]
       }
-    },
-    "note": "URLs TBD — Jaz to host on jazdesign.com. Use placeholders until provided. Inventory below.",
-    "inventory": [
-      {
-        "id": "logo_jd",
-        "where": "cover + page 2 header",
-        "desc": "JD / JAZ DESIGN logo",
-        "context": "downloaded/finalized header only — NOT shown in the on-site embed (Squarespace page already branded). Centered."
-      },
-      {
-        "id": "cover_kitchen",
-        "where": "cover",
-        "desc": "Sunlit kitchen with window, teapot, wood cabinets"
-      },
-      {
-        "id": "intro_woman_coffee",
-        "where": "page 2",
-        "desc": "Woman holding coffee mug in bright kitchen"
-      },
-      {
-        "id": "section_two_moodboard",
-        "where": "page 8",
-        "desc": "Flat-lay of materials, samples, faucet, sketch, kitchen photo"
-      }
-    ]
-  },
-  "openFlags": [
-    "Backsplash options list 'Granite/quartzite' twice in the PDF; de-duplicated here. Confirm intended set with Jaz.",
-    "Appliances and Counters/Backsplash/Walls each use ONE shared $ amount (not per-item) per the PDF layout. Confirmed against pages 6-7.",
-    "Image URLs pending (see images.note)."
-  ]
-}
-
     </script>
 
     <!-- ===== EMBEDDED USER DATA (offline downloads bake the saved record in here) ===== -->
