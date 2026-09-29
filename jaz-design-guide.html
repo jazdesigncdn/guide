@@ -3683,6 +3683,22 @@
       </div>
     </div>
 
+    <div class="modal-back" id="linkModal" role="dialog" aria-modal="true" aria-labelledby="linkTitle">
+      <div class="modal">
+        <h2 id="linkTitle">Leaving your guide</h2>
+        <p class="modal-sub">
+          This link opens the JAZ Design website — your answers are saved either way.
+          <strong>New tab</strong> keeps this page open beside it;
+          <strong>this tab</strong> leaves the guide (your browser's Back button brings you back).
+        </p>
+        <div class="modal-actions modal-actions--row">
+          <button class="nav-btn primary" id="linkNewTab" type="button">New tab</button>
+          <button class="nav-btn ghost" id="linkThisTab" type="button">This tab</button>
+          <button class="nav-btn ghost" id="linkCancel" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== Cost totals — right slide-in receipt drawer ===== -->
     <div class="drawer-back" id="receiptDrawer" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
       <aside class="drawer" id="receiptPanel">
@@ -6253,6 +6269,38 @@
           });
           window.addEventListener("online", syncOptAvailability);
           window.addEventListener("offline", syncOptAvailability);
+          // Link-leaving prompt. Only ever active when extTarget is "_blank" (local
+          // file, downloaded/emailed copy, launcher pane) — embedded live-site links
+          // are _top and skip straight through. A file:// page can't detect an
+          // already-open site tab, so the modal offers both choices instead.
+          var linkModalEl = document.getElementById("linkModal");
+          var pendingLink = null;
+          function closeLinkModal() {
+            pendingLink = null;
+            linkModalEl.classList.remove("open");
+          }
+          document.addEventListener("click", function (e) {
+            if (extTarget !== "_blank") return;
+            var a = e.target.closest(
+              "a.service-purchase, a.service-img-link, a.logo-link, a.wm-link, a.foot-link",
+            );
+            if (!a || !a.href) return;
+            e.preventDefault();
+            pendingLink = a.href;
+            linkModalEl.classList.add("open");
+          });
+          linkModalEl.addEventListener("click", function (e) {
+            if (e.target === linkModalEl) closeLinkModal();
+          });
+          document.getElementById("linkNewTab").addEventListener("click", function () {
+            var href = pendingLink;
+            closeLinkModal();
+            if (href) window.open(href, "_blank", "noopener");
+          });
+          document.getElementById("linkThisTab").addEventListener("click", function () {
+            if (pendingLink) location.href = pendingLink;
+          });
+          document.getElementById("linkCancel").addEventListener("click", closeLinkModal);
           (function () {
             // embedded on the live site: the bottom jazdesign.com/guide link is redundant
             // with the site chrome, so hide it (keep the .foot element for later use).
