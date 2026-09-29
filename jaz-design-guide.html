@@ -2443,7 +2443,7 @@
       "logoLink": "https://www.jazdesign.com",
       "userLink": "https://www.jazdesign.com/guidance"
     },
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "sourcePdf": "guide_optimizedFINAL.pdf",
     "notes": "Field schema extracted from the 12-page PDF. Drives the HTML template, autosave keys, and the Supabase JSON payload. Every input field has a stable `id` used as the storage key; ids are never renamed once shipped (renaming breaks saved records).",
     "fieldTypes": {
@@ -3455,7 +3455,7 @@
         },
         {
           "id": "concept_layout_sketch",
-          "name": "Concept Layout Sketch",
+          "name": "Kitchen Concept Layout",
           "image": "https://images.squarespace-cdn.com/content/684daa70ee27897c73ed1545/d237edf2-e5fb-4ebe-8ea6-6491866b2a1e/kg-layout-sketch.png?content-type=image%2Fpng",
           "imageHref": "https://www.jazdesign.com/kitchen-guide-services?p=KG-KCLS",
           "imageSide": "right",
@@ -4937,7 +4937,7 @@
               });
               if (s.imageHref) {
                 var buyRow = el("div", "service-purchase-row");
-                var buy = el("a", "service-purchase", "Purchase");
+                var buy = el("a", "service-purchase", "Learn More");
                 buy.href = s.imageHref;
                 buy.target = extTarget;
                 buy.rel = "noopener";
