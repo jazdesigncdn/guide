@@ -4896,13 +4896,6 @@
           if (sec.intro) p.appendChild(el("p", "section-intro", sec.intro));
           if (sec.body) p.appendChild(el("p", "section-intro", sec.body));
           if (sec.type === "info" && sec.services) {
-            // Embedded on the live site: navigate the whole tab (_self would be
-            // blocked by frame-ancestors). Standalone/downloaded/launcher copies
-            // keep _blank so the artifact or launcher tab is not navigated away.
-            var extTarget =
-              window.parent !== window && location.protocol !== "file:"
-                ? "_top"
-                : "_blank";
             sec.services.forEach(function (s) {
               var d = el("div", "service");
               if (s.image) {
@@ -5219,6 +5212,12 @@
         // Separate var from SERVER_ENABLED by design (email can be dark while the DB is live),
         // so READONLY has to close it independently — it does not inherit the guard above.
         var EMAIL_ENABLED = !IS_READONLY; // send-guide Edge Function live (Resend); [Email me] + [Send to JAZ]
+        // Link target policy: embedded on the live site -> navigate the whole tab
+        // (_self would be blocked by Squarespace frame-ancestors). Standalone,
+        // downloaded, and launcher-framed copies keep _blank so the artifact or
+        // launcher tab is not navigated away.
+        var extTarget =
+          window.parent !== window && location.protocol !== "file:" ? "_top" : "_blank";
 
         // ---- Supabase (data store only; no Edge Function yet) ----
         // Publishable key is public-by-design; RLS on guide_records scopes access.
@@ -5951,8 +5950,10 @@
           if (img && hdr.logoImg) img.src = hdr.logoImg;
           var ll = document.getElementById("logoLink");
           if (ll && hdr.logoLink) ll.href = hdr.logoLink;
+          if (ll) ll.target = extTarget;
           var ul = document.getElementById("userLink");
           if (ul && hdr.userLink) ul.href = hdr.userLink;
+          if (ul) ul.target = extTarget;
 
           var vr = document.getElementById("wmVer");
           if (vr) {
