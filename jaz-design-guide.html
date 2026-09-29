@@ -4896,6 +4896,13 @@
           if (sec.intro) p.appendChild(el("p", "section-intro", sec.intro));
           if (sec.body) p.appendChild(el("p", "section-intro", sec.body));
           if (sec.type === "info" && sec.services) {
+            // Embedded on the live site: navigate the whole tab (_self would be
+            // blocked by frame-ancestors). Standalone/downloaded/launcher copies
+            // keep _blank so the artifact or launcher tab is not navigated away.
+            var extTarget =
+              window.parent !== window && location.protocol !== "file:"
+                ? "_top"
+                : "_blank";
             sec.services.forEach(function (s) {
               var d = el("div", "service");
               if (s.image) {
@@ -4906,7 +4913,7 @@
                 if (s.imageHref) {
                   var a = el("a", "service-img-link " + sideCls);
                   a.href = s.imageHref;
-                  a.target = "_blank";
+                  a.target = extTarget;
                   a.rel = "noopener";
                   a.appendChild(im);
                   d.appendChild(a);
@@ -4923,7 +4930,7 @@
                 var buyRow = el("div", "service-purchase-row");
                 var buy = el("a", "service-purchase", "Purchase");
                 buy.href = s.imageHref;
-                buy.target = "_blank";
+                buy.target = extTarget;
                 buy.rel = "noopener";
                 buyRow.appendChild(buy);
                 d.appendChild(buyRow);
