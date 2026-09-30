@@ -378,6 +378,43 @@
         font-size: 0.86rem;
         color: var(--jaz-blue);
       }
+      .conflict-more {
+        display: block;
+        margin: 12px auto 0;
+        border: 0;
+        background: none;
+        padding: 4px 8px;
+        font: inherit;
+        font-size: 0.85rem;
+        color: var(--jaz-blue);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+      }
+      .conflict-more:hover {
+        color: var(--teal);
+        background: none;
+      }
+      .conflict-detail {
+        margin-top: 8px;
+        padding: 10px 12px;
+        border: 1px dashed var(--sage);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+      }
+      .conflict-detail-head {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .conflict-diff {
+        padding: 1px 0;
+        color: var(--ink);
+      }
+      .conflict-detail-times {
+        margin-top: 8px;
+        font-size: 0.8rem;
+      }
       /* ── Cost-totals drawer: slides in from the right, fits the visible band ── */
       .drawer-back {
         position: fixed;
@@ -3660,6 +3697,12 @@
             <span class="conflict-card-meta" id="conflictLocalMeta"></span>
           </button>
         </div>
+        <button class="conflict-more" id="conflictMore" type="button" aria-expanded="false">What's different?</button>
+        <div class="conflict-detail" id="conflictDetail" hidden>
+          <div class="conflict-detail-head">Different answers on:</div>
+          <div id="conflictDiffList"></div>
+          <div class="conflict-detail-times" id="conflictTimes"></div>
+        </div>
       </div>
     </div>
 
@@ -5311,6 +5354,30 @@
           if (dd < 30) return dd + (dd === 1 ? " day ago" : " days ago");
           return new Date(t).toLocaleDateString();
         }
+        // absolute time for the conflict detail view (relative can tie: "11 min ago")
+        function fmtAbs(iso) {
+          var t = Date.parse(iso);
+          if (isNaN(t)) return "unknown";
+          var d = new Date(t);
+          return (
+            d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) +
+            ", " +
+            d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
+          );
+        }
+        // field id -> its model label (contact/handoff ids aren't model fields)
+        function fieldLabel(id) {
+          if (/^(contact_|jaz_)/.test(id)) return "Contact details";
+          var secs = (MODEL && MODEL.sections) || [];
+          for (var i = 0; i < secs.length; i++) {
+            var fs = secs[i].fields || [];
+            for (var j = 0; j < fs.length; j++) {
+              if (fs[j].id === id) return fs[j].label || id;
+              if (fs[j].other && fs[j].other.id === id) return fs[j].other.label || "Other";
+            }
+          }
+          return id.replace(/^[a-z]+\d+_/, "").replace(/_/g, " ");
+        }
         // Surface 2: server/local answers diverge -> ask which wins, then persist the choice
         // so the other origin converges on its next boot. server = {data,consent,created_at,updated_at}.
         function resolveConflict(server, onDone) {
@@ -5350,6 +5417,52 @@
             answeredCount(state.data),
             fmtWhen(state.updated_at),
           );
+          // an online copy saved by THIS browser is just an earlier session of hers —
+          // say so, or she burns the prompt thinking a stranger touched her answers
+          if (server.client_id && server.client_id === clientId()) {
+            var _sm = document.getElementById("conflictServerMeta");
+            if (_sm) _sm.textContent += " · from this browser";
+          }
+          // progressive disclosure: cards stay compact; the toggle opens the
+          // labels that disagree + absolute times (relative ties: "11 min ago")
+          var _A = answeredSet(state.data),
+            _B = answeredSet(server.data);
+          var _keys = {};
+          Object.keys(_A).forEach(function (k) {
+            _keys[k] = 1;
+          });
+          Object.keys(_B).forEach(function (k) {
+            _keys[k] = 1;
+          });
+          var _diffs = Object.keys(_keys).filter(function (k) {
+            return _A[k] !== _B[k];
+          });
+          var _more = document.getElementById("conflictMore"),
+            _det = document.getElementById("conflictDetail"),
+            _dl = document.getElementById("conflictDiffList");
+          _det.hidden = true;
+          _more.setAttribute("aria-expanded", "false");
+          _more.textContent = "What's different?";
+          _dl.innerHTML = "";
+          _diffs.slice(0, 4).forEach(function (k) {
+            _dl.appendChild(el("div", "conflict-diff", fieldLabel(k)));
+          });
+          if (_diffs.length > 4)
+            _dl.appendChild(el("div", "conflict-diff", "+ " + (_diffs.length - 4) + " more"));
+          document.getElementById("conflictTimes").textContent =
+            (ui.conflictServerLabel || "Saved online") +
+            ": " +
+            fmtAbs(server.updated_at) +
+            " · " +
+            (ui.conflictLocalLabel || "On this device") +
+            ": " +
+            fmtAbs(state.updated_at);
+          _more.onclick = function () {
+            var show = _det.hidden;
+            _det.hidden = !show;
+            _more.setAttribute("aria-expanded", show ? "true" : "false");
+            _more.textContent = show ? "Hide details" : "What's different?";
+          };
           function choose(useServer) {
             back.classList.remove("open");
             if (useServer) {
