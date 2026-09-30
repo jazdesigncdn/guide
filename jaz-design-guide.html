@@ -395,6 +395,7 @@
         color: var(--teal);
         background: none;
       }
+      /* collapses like the sub-forms: px max-height during transition, none after */
       .conflict-detail {
         margin-top: 8px;
         padding: 10px 12px;
@@ -402,6 +403,24 @@
         border-radius: 8px;
         font-size: 0.85rem;
         color: var(--ink-soft);
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.25s ease,
+          opacity 0.2s ease,
+          padding 0.25s ease,
+          margin 0.25s ease,
+          border-width 0.25s ease;
+      }
+      .conflict-detail:not(.show) {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        border-width: 0;
+      }
+      .conflict-detail.show {
+        opacity: 1;
       }
       .conflict-detail-head {
         font-weight: 700;
@@ -3698,7 +3717,7 @@
           </button>
         </div>
         <button class="conflict-more" id="conflictMore" type="button" aria-expanded="false">What's different?</button>
-        <div class="conflict-detail" id="conflictDetail" hidden>
+        <div class="conflict-detail" id="conflictDetail" aria-hidden="true">
           <div class="conflict-detail-head">Different answers on:</div>
           <div id="conflictDiffList"></div>
           <div class="conflict-detail-times" id="conflictTimes"></div>
@@ -5440,7 +5459,9 @@
           var _more = document.getElementById("conflictMore"),
             _det = document.getElementById("conflictDetail"),
             _dl = document.getElementById("conflictDiffList");
-          _det.hidden = true;
+          _det.classList.remove("show");
+          _det.style.maxHeight = "0px";
+          _det.setAttribute("aria-hidden", "true");
           _more.setAttribute("aria-expanded", "false");
           _more.textContent = "What's different?";
           _dl.innerHTML = "";
@@ -5458,8 +5479,21 @@
             ": " +
             fmtAbs(state.updated_at);
           _more.onclick = function () {
-            var show = _det.hidden;
-            _det.hidden = !show;
+            // same reveal as setSubOpen's subs: px max-height mid-flight, none after
+            var show = !_det.classList.contains("show");
+            _det.classList.toggle("show", show);
+            _det.setAttribute("aria-hidden", show ? "false" : "true");
+            if (_det._dT) clearTimeout(_det._dT);
+            if (show) {
+              _det.style.maxHeight = _det.scrollHeight + "px";
+              _det._dT = setTimeout(function () {
+                _det.style.maxHeight = "none";
+              }, 260);
+            } else {
+              _det.style.maxHeight = _det.scrollHeight + "px";
+              _det.offsetHeight;
+              _det.style.maxHeight = "0px";
+            }
             _more.setAttribute("aria-expanded", show ? "true" : "false");
             _more.textContent = show ? "Hide details" : "What's different?";
           };
